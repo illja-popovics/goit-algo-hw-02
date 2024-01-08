@@ -1,25 +1,28 @@
-from queue import Queue
+import queue
+import time
 
-queue = Queue()
+request_queue = queue.Queue()
 
 def generate_request():
-    pass
+    request_data = {"id": request_queue.qsize() + 1, "timestamp": time.time()}
+    request_queue.put(request_data)
+    print(f"Заявка {request_data['id']} створена.")
 
 def process_request():
-    pass
+    if not request_queue.empty():
+        # Видалити заявку з черги
+        request_data = request_queue.get()
+        print(f"Заявка {request_data['id']} оброблена.")
+    else:
+        print("Черга порожня. Очікуємо нові заявки.")
 
-# Функція generate_request():
-#     Створити нову заявку
-#     Додати заявку до черги
 
-# Функція process_request():
-#     Якщо черга не пуста:
-#         Видалити заявку з черги
-#         Обробити заявку
-#     Інакше:
-#         Вивести повідомлення, що черга пуста
+# Головний цикл програми
+while True:
+    generate_request()
+    
+    process_request()
+    
+    time.sleep(1)
 
-# Головний цикл програми:
-#     Поки користувач не вийде з програми:
-#         Виконати generate_request() для створення нових заявок
-#         Виконати process_request() для обробки заявок
+    
