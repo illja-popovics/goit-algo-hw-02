@@ -18,11 +18,14 @@ def process_request():
 
 
 # Головний цикл програми
-while True:
-    generate_request()
-    
-    process_request()
-    
-    time.sleep(1)
+def main():
+    while True:
+        try:
+            generate_request()
+            process_request()
+            time.sleep(1)
+        except KeyboardInterrupt:
+            break
 
-    
+if __name__ == "__main__":
+    main()
